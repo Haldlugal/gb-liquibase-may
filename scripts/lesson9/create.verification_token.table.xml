@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd ">
+
+    <changeSet id="before_create_verification_token_table" author="shestakov.vasily">
+        <tagDatabase tag="before_create_verification_token_table"/>
+    </changeSet>
+
+    <changeSet id="create_verification_token_table" author="shestakov.vasily">
+        <createTable tableName="verification_token">
+            <column name="ID" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="token" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="user_id" type="BIGSERIAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiryDate" type="TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="fk_verification_token2user"
+                                 baseTableName="verification_token"
+                                 baseColumnNames="user_id"
+                                 referencedTableName="account_user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <!---->
+
+
+
+</databaseChangeLog>
